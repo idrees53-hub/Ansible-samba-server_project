@@ -16,7 +16,7 @@
      - name: doing the permanent entry in the /etc/fstab file 
        lineinfile:
          path: /etc/fstab 
-         line: "//13.201.78.214/sambashare /sambamount cifs username=redhat,password=redhat@123 0 0"
+         line: "//13.201.78.214/sambashare /sambamount cifs username=redhat,password=redhat@123 0 0"  ## replace 13.201.78.214 with your samba server IP 
          state: present 
 
      - command: mount -a  
