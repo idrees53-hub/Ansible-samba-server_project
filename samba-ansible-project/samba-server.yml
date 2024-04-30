@@ -30,8 +30,9 @@
      - user:
         name: redhat
         state: present
-
-     - command:  echo -ne "redhat\nredhat@123\n" | smbpasswd -a -s redhat
+        
+    ## This smbpasswd command might not work in every system so make sure if your system is giving error in mount -a then you have to add user manually 
+     - command:  echo -ne "redhat\nredhat@123\n" | smbpasswd -a -s redhat     
        notify: restart samba
 
    handlers:
