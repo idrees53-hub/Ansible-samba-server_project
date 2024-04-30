@@ -1,0 +1,6 @@
+[sambaserver]
+servera
+
+[sambaclient]
+serverb
+

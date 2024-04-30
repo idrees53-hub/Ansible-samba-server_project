@@ -1,0 +1,23 @@
+---
+ - name: adding the samba-client configuration
+   hosts: sambaclient
+   tasks:
+     - name: adding the sambamount directory in the system 
+       file:
+         path: /sambamount
+         state: directory 
+         mode: "775"
+
+     - name: installing the cifs-utils in the samba client 
+       yum: 
+         name: cifs-utils
+         state: present
+
+     - name: doing the permanent entry in the /etc/fstab file 
+       lineinfile:
+         path: /etc/fstab 
+         line: "//13.201.78.214/sambashare /sambamount cifs username=redhat,password=redhat@123 0 0"
+         state: present 
+
+     - command: mount -a  
+

@@ -1,0 +1,46 @@
+---
+ - name: installing samba server on samba server machine 
+   hosts: sambaserver
+   tasks:
+
+     - yum:
+        name: samba
+        state: present 
+
+     - service:
+        name: smb
+        state: started 
+        enabled: yes
+
+     - service:
+        name: nmb
+        state: started 
+        enabled: yes 
+
+     - file:
+        path: /sambashare
+        state: directory 
+        mode: "755"
+        setype: samba_share_t 
+     
+     - template:
+        src: smb.conf.j2
+        dest: /etc/samba/smb.conf
+
+     - user:
+        name: redhat
+        state: present
+
+     - command:  echo -ne "redhat\nredhat@123\n" | smbpasswd -a -s redhat
+       notify: restart samba
+
+   handlers:
+     - name: restart samba 
+       service:
+        name: smb 
+        state: restarted
+     - name: restart samba
+       service:
+        name: nmb
+        state: restarted  
+
